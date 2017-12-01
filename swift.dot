@@ -1,0 +1,140 @@
+//
+// Generated automatically 2017-12-01 13:07:34
+// sed -f swift-style.sed swift-template.dot
+//
+digraph swift_standard_library {
+	graph [rankdir=LR]
+		  [ranksep=0.5]
+
+    // fdp인 경우에 edge가 cluster를 피해서 그린다.
+    //graph [splines="compound"]
+	edge [dir=left]
+	
+	//edge [headclip=true, tailclip=true]
+	root=0
+
+	subgraph protocol {
+		node [shape=rectangle style="rounded,dashed" fillcolor=white color=red penwidth=1]
+
+		// String Representation
+		CustomStringConvertible
+		LosslessStringConvertible
+		CustomDebugStringConvertible
+
+		// Sets and Dictionaries
+		Hashable                  
+
+		// Equality and Ordering
+		Equatable
+		Comparable
+
+		// Basic Arithmetic
+		Numeric
+		SignedNumeric
+		Strideable
+
+		// Integer
+		BinaryInteger
+		FixedWidthInteger 
+		SignedInteger            
+
+		// Floating Point
+		FloatingPoint
+		BinaryFloatingPoint
+
+		// Collection Literals
+		ExpressibleByArrayLiteral
+		ExpressibleByDictionaryLiteral
+
+		// Value Literals
+		ExpressibleByIntegerLiteral
+		ExpressibleByBooleanLiteral
+		ExpressibleByFloatLiteral
+		
+		// String Literals
+		ExpressibleByStringLiteral
+		ExpressibleByExtendedGraphemeClusterLiteral
+		ExpressibleByUnicodeScalarLiteral
+
+		// Customizing Your Type's Reflection
+		//CustomReflectable 
+
+		// Range Expressions
+		RangeExpression
+
+		// First Steps
+		Collection
+		Sequence
+
+		// Collection Traversal
+		BidirectionalCollection
+		RandomAccessCollection
+
+		// Collection Mutability
+		MutableCollection
+		RangeReplaceableCollection
+
+		// Manual Iteration
+		IteratorProtocol
+
+		// Strings and Characters
+		StringProtocol
+
+		// Encoding and Decoding Custom Types
+		Encodable
+		Decodable
+
+		// Streams
+		TextOutputStream
+		TextOutputStreamable
+
+	}
+
+	subgraph structure {
+		node [shape=rectangle style="rounded" fillcolor=white color=blue penwidth=3]
+
+		graph [rank=same]
+
+		Int
+		Float
+		Bool
+		String
+
+		Array
+		Dictionary
+
+		Range
+
+		// Wrappers for Algorithm
+		UnfoldSequence
+	}
+
+	LosslessStringConvertible -> CustomStringConvertible
+	Hashable -> { Equatable }
+	Comparable -> { Equatable }
+	Strideable -> { Comparable }
+	FixedWidthInteger -> { BinaryInteger, LosslessStringConvertible } 
+	SignedInteger -> { BinaryInteger, SignedNumeric }
+	BinaryInteger -> { CustomStringConvertible, Hashable, Numeric, Strideable } 
+	SignedNumeric -> { Numeric } -> { Equatable, ExpressibleByIntegerLiteral }
+	BinaryFloatingPoint -> { ExpressibleByFloatLiteral, FloatingPoint }
+	FloatingPoint -> { Hashable, SignedNumeric, Strideable }
+	ExpressibleByStringLiteral -> ExpressibleByExtendedGraphemeClusterLiteral -> ExpressibleByUnicodeScalarLiteral
+	BidirectionalCollection -> Collection
+	MutableCollection -> Collection 
+	RangeReplaceableCollection -> Collection 
+	Collection -> Sequence
+	RandomAccessCollection -> BidirectionalCollection
+	StringProtocol -> { BidirectionalCollection, Comparable, LosslessStringConvertible, ExpressibleByStringLiteral, Hashable, TextOutputStream, TextOutputStreamable }
+
+	Int -> { FixedWidthInteger, SignedInteger }
+	Float -> { BinaryFloatingPoint, CustomDebugStringConvertible, LosslessStringConvertible }
+	Bool -> { ExpressibleByBooleanLiteral, Hashable, LosslessStringConvertible }
+	String -> { CustomDebugStringConvertible, RangeReplaceableCollection, StringProtocol }
+
+	Range -> { CustomDebugStringConvertible, /* CustomStringConvertible, */ Equatable, RangeExpression }
+	Array -> { Decodable, Encodable, ExpressibleByArrayLiteral, MutableCollection, RandomAccessCollection, RangeReplaceableCollection }
+	Dictionary -> { Collection, Decodable, Encodable, ExpressibleByDictionaryLiteral }
+
+	UnfoldSequence -> { IteratorProtocol, Sequence }
+}
