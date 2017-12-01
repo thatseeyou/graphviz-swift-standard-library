@@ -1,5 +1,5 @@
 //
-// Generated automatically 2017-12-01 13:07:34
+// Generated automatically 2017-12-01 13:53:20
 // sed -f swift-style.sed swift-template.dot
 //
 digraph swift_standard_library {
@@ -107,6 +107,8 @@ digraph swift_standard_library {
 
 		// Wrappers for Algorithm
 		UnfoldSequence
+		StrideTo
+		Zip2Sequence
 	}
 
 	LosslessStringConvertible -> CustomStringConvertible
@@ -137,4 +139,6 @@ digraph swift_standard_library {
 	Dictionary -> { Collection, Decodable, Encodable, ExpressibleByDictionaryLiteral }
 
 	UnfoldSequence -> { IteratorProtocol, Sequence }
+	StrideTo -> { Sequence }
+	Zip2Sequence -> { Sequence }
 }

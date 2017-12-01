@@ -103,6 +103,8 @@ digraph swift_standard_library {
 
 		// Wrappers for Algorithm
 		UnfoldSequence
+		StrideTo
+		Zip2Sequence
 	}
 
 	LosslessStringConvertible -> CustomStringConvertible
@@ -133,4 +135,6 @@ digraph swift_standard_library {
 	Dictionary -> { Collection, Decodable, Encodable, ExpressibleByDictionaryLiteral }
 
 	UnfoldSequence -> { IteratorProtocol, Sequence }
+	StrideTo -> { Sequence }
+	Zip2Sequence -> { Sequence }
 }
